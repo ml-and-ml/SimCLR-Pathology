@@ -35,3 +35,13 @@ The main evaluation script is `eval.py`. Please use `python eval.py -h` to see c
 Example execution: `python eval.py -out /path/to/output -data /path/to/svs/tiles  -library /path/to/csv/file.csv -j 10 --subsample .5 -checkpoint /path/to/checkpoint.pth.tar`
 
 Currently, the evaluation script output a tSNE visualization of the feature space. Variable `dataset_embedding` can be exported as a feature vector of the input tile library.
+
+## Requirements
+* pandas==0.24.2
+* torchvision==0.9.1
+* torch==1.8.1
+* matplotlib==3.1.1
+* numpy==1.21.1
+* openslide_python==1.1.1
+* PyYAML==5.4.1
+* scikit_learn==0.24.2

@@ -45,3 +45,6 @@ Currently, the evaluation script output a tSNE visualization of the feature spac
 * openslide_python==1.1.1
 * PyYAML==5.4.1
 * scikit_learn==0.24.2
+
+## References
+[A Simple Framework for Contrastive Learning of Visual Representations](https://arxiv.org/abs/2002.05709)

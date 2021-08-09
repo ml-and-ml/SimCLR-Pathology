@@ -100,10 +100,8 @@ def main():
                 features = model(images).squeeze()
                 dataset_embedding[(n_iter * args.batch_size):(n_iter * args.batch_size + len(images))] = features
 
-            print('Train: [{0}][{1}/{2}]\t'
-                  'loss {loss.val:.3f} ({loss.avg:.3f})\t'
-                  'acc {acc.val:.3f} ({acc.avg:.3f})'.format(
-                0, n_iter+1, len(valid_loader), loss=lossMeter, acc=accMeter))
+            print('Train: [{0}][{1}/{2}]'.format(
+                0, n_iter+1, len(valid_loader)))
 
             n_iter += 1
 

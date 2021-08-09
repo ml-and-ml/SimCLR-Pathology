@@ -5,6 +5,7 @@ model_names = ['resnet18', 'resnet50']
 
 parser = argparse.ArgumentParser(description='PyTorch SimCLR')
 parser.add_argument('-data', metavar='DIR', default='./', help='path to svs files')
+parser.add_argument('-library', metavar='FILE', default='./*.csv', help='path to csv tile library')
 parser.add_argument('-outdir', metavar='DIR', default='./', help='output path')
 parser.add_argument('-a', '--arch', metavar='ARCH', default='resnet18',
                     choices=model_names,

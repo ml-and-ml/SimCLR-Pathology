@@ -1,9 +1,5 @@
 import os
-import torch
-import random
-import numpy as np
 import torch.utils.data
-from pdb import set_trace
 from openslide import OpenSlide
 from itertools import permutations
 

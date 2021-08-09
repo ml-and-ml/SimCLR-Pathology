@@ -34,18 +34,15 @@ parser.add_argument('--subsample', default=1, type=float, metavar='%',
                     help='fraction (0 < n < 1) of tile library to use in training')
 
 import os
+import utils
 import torch
+import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
-from torchvision import models
 import torchvision.transforms as transforms
+from torch.cuda.amp import GradScaler, autocast
 
 from models import ResNetSimCLR
-from torch.cuda.amp import GradScaler, autocast
-import torch.nn.functional as F
-from pdb import set_trace
 from dataloaders import TileLoader, ContrastiveLearningViewGenerator
-import torch.nn as nn
-import utils
 
 def main():
     args = parser.parse_args()
@@ -55,14 +52,11 @@ def main():
     args.tile_size=224
     args.device = gpu
 
-
     if not os.path.exists(args.outdir):
         os.makedirs(args.outdir)
 
-    data = torch.load('/lila/data/fuchs/hassan/cholangio/tStage_library.pth', encoding='latin1')['library']
-    data = data.astype({"SlideID": int})
-    data = data.sample(frac=args.subsample)
-    train_library = data[data.Split == 'train'].reset_index(drop=True)
+    data = pd.read_csv(args.library)
+    train_library = data.sample(frac=args.subsample).reset_index(drop=True)
 
     color_jitter = transforms.ColorJitter(0.8, 0.8, 0.8, 0.2)
     data_transforms = transforms.Compose([transforms.RandomResizedCrop(size=args.tile_size),
@@ -71,7 +65,6 @@ def main():
                                           transforms.RandomGrayscale(p=0.2),
                                           utils.GaussianBlur(kernel_size=int(0.1 * args.tile_size)),
                                           transforms.ToTensor()])
-
 
 
     clr_augmentations = ContrastiveLearningViewGenerator(data_transforms, 2)
@@ -136,8 +129,6 @@ def main():
                 'state_dict': model.state_dict(),
                 'optimizer': optimizer.state_dict(),
             }, is_best=False, filename=os.path.join(args.outdir, checkpoint_name))
-
-
 
 
 def info_nce_loss(args, features):

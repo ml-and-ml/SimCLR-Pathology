@@ -9,7 +9,7 @@ The main training script is `train.py`. Please use `python train.py -h` to see c
 
 Example execution: `python train.py -out /path/to/output -data /path/to/svs/tiles  -library /path/to/csv/file.csv -j 10 --subsample .5`
 
-The tile library (csv) should have the following format where SlideID is the:
+The tile library (csv) should have the following format:
 
 SlideID | x | y 
 ------------ | ------------- | -------------
